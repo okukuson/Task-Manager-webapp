@@ -19,7 +19,7 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-app.secret_key = "secret key"
+app.secret_key = "064a0ff47574b157fa3994b1"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///web_app_database.db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy()
