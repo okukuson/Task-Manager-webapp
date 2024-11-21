@@ -1,0 +1,74 @@
+{% extends 'header.html' %}
+
+    {% block title %} Task Details {% endblock%}
+    {% block content%}
+    {% from 'bootstrap5/form.html' import render_form %}
+    <table class="table table-hover">
+        <tr>
+        {% if current_user.id == 1 %}
+            {% for details in db_head %}
+                <th>{{details}}</th>
+            {% endfor %}
+        {% else %}
+            {% for details in db_head[:-1] %}
+                <th>{{details}}</th>
+            {% endfor %}
+        {% endif %}
+        </tr>
+
+
+        <tr>
+
+
+                <td>{{details.task_id}}</td>
+                <td>{{details.company_name.name}}</td>
+                <td>{{details.location}}</td>
+                <td>{{details.task_name}}</td>
+                <td>
+                    {% if staff|length == 0 %}
+                        No staff assigned
+                    {% elif staff|length > 0 %}
+                        <ul>
+                        {% for person in staff %}
+                             <li>{{person['name']}} : {{person['status']}}</li>
+                        {% endfor %}
+                        </ul>
+                    {% endif %}
+                </td>
+                <td>{{details.cost}}</td>
+                <td>{{details.payment}}</td>
+                <td>{{details.cost - details.payment}}</td>
+                <td>{{details.startDate}}</td>
+                <td>{{details.status}}</td>
+            {% if current_user.privilege == "Administrator" %}
+                <td><a href="{{url_for('editTask',taskid=task_id)}}">
+                    <button type="button" class="btn btn-success">Edit</button>
+                </a></td>
+            {% endif %}
+
+
+        </tr>
+    </table>
+
+    <div class="col-8">
+        {{render_form(form)}}
+    </div>
+
+
+{% for post in posts %}
+<div class="col-8">
+    <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{post.author_name.id_name}}</h5>
+    <h8 class="card-subtitle mb-2 text-muted">{{post.timing}}</h8>
+    <p class="card-text">{{post.comment}}</p>
+    <a href="#" class="card-link">Card link</a>
+    <a href="#" class="card-link">Another link</a>
+  </div>
+</div>
+    </div>
+    <br>
+{% endfor %}
+
+
+{% endblock %}

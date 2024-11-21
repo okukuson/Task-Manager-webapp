@@ -1,0 +1,19 @@
+{% extends 'second_header.html' %}
+
+{% block title %} Compose New Message {% endblock %}
+
+{% block content %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+    <div class="container">
+        <div class="row">
+            {{render_form(form)}}
+        </div>
+
+
+    </div>
+
+
+
+{% endblock %}

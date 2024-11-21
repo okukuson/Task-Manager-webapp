@@ -1,0 +1,48 @@
+{% extends 'second_header.html' %}
+
+
+{% block title %} Add User {% endblock %}
+
+{% block content %}
+<div class="container">
+{% from 'bootstrap5/form.html' import render_form %}
+
+{{ render_form(form)}}
+
+
+</div>
+{% endblock %}
+
+
+
+
+
+
+
+
+<!--
+</head>
+<body>
+    <form action='/add-user' method="POST">
+        {{ form.csrf_token }}
+        <p>
+
+            {{ form.email.label}} {{ form.email(size=30)}}
+            {{ form.position.label}} {{ form.position(size=30)}}
+            {{ form.first_name.label}} {{ form.first_name(size=30)}}
+            {{ form.last_name.label}} {{ form.last_name(size=30)}}
+            {{ form.password.label}} {{ form.password(size=30)}}
+            <br>
+            {{form.submit}}
+        </p>
+        <br>
+        <p>
+            <div class="dropdown">
+                <div class="dropdown-content">
+                <a href="{{url_for('companyList')}}">Link 1</a>
+                <a href="{{url_for('addTask')}}">Link 2</a>
+                </div>
+            </div>
+        </p>
+    </form>
+</body>

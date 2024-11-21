@@ -1,0 +1,28 @@
+{% extends 'second_header.html' %}
+
+{% block title %} {{current_user.id_name}} To Do{% endblock %}
+
+{% block content %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+ <div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link active" aria-current="true" href="#">Active</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" aria-disabled="true">Disabled</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Request Leave</h5>
+    <div  class="container"><p class="card-text" align="center">{{render_form(form)}}</p></div>
+  </div>
+</div>
+
+{% endblock %}}

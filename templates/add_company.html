@@ -1,0 +1,44 @@
+{% extends 'second_header.html' %}
+
+    {% block title%}Add Company{% endblock %}
+
+    {% block content %}
+    {% from 'bootstrap5/form.html' import render_form %}
+    <div class='container'>
+        <div class='row'>
+        <div class='col-8'>
+    {{render_form(form)}}
+        </div>
+        </div>
+        <p>
+            <div class="dropdown">
+                <div class="dropdown-content">
+                <a href="{{url_for('companyList')}}">Link 1</a>
+                <a href="{{url_for('addTask')}}">Add Task</a>
+                </div>
+            </div>
+        </p>
+    </div>
+    
+        
+    </form>
+{% endblock %}
+
+
+
+
+
+<!--<form action='/add-company' method="POST">
+        {{ form.csrf_token }}
+        <p>
+            {{ form.name.label}} {{ form.name(size=30)}}
+            {{ form.location.label}} {{ form.location(size=30)}}
+            {{ form.contact.label}} {{ form.contact(size=30)}}
+            {{ form.mail.label}} {{ form.mail(size=30)}}
+            {% for err in form.name.erros %}
+            {{ err }}
+            {% endfor %}
+            <br>
+            {{form.submit}}
+        </p>
+        <br> -->

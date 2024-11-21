@@ -1,0 +1,29 @@
+{% extends 'second_header.html'%}
+    
+    {% block title %}Add Task {% endblock %}
+
+    {% block content %}
+    <div class='container'>
+    {% from 'bootstrap5/form.html' import render_form %}
+    
+    {{ render_form(form) }}
+    </div>
+
+{% endblock %}
+
+
+<!--{{ form.task_name.label}} {{ form.task_name(size=30)}}
+            {{ form.company_name.label}} {{ form.company_name()}}
+            {{ form.status.label}} {{ form.status(size=30)}}
+            {{ form.cost.label}} {{ form.cost(size=30)}}
+            {{ form.payment.label}} {{ form.payment(size=30)}}
+            {{ form.startDate.label}} {{ form.startDate(size=30)}}
+            {{ form.stopDate.label}} {{ form.stopDate(size=30)}}
+                         <br>
+            {{form.submit}}
+        </p>
+    </form>
+</body>
+</html>
+
+-->

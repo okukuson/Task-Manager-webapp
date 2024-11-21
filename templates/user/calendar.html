@@ -1,0 +1,17 @@
+{% extends 'header.html' %}
+
+{% block title %} {{staff['id_name']}} Calendar{% endblock %}
+
+{% block content %}
+    <h1><a href="{{url_for('requestLeave', option='leave')}}">Request Leave</a></h1>
+    <br>
+    <h1><a href="{{url_for('requestLeave', option='work')}}">Fill in availability</a></h1>
+    {% if user_calendar != 0 %}
+        {% for cal in user_calendar %}
+            {% for info in cal %}
+            <h3> {{info}}</h3>
+            {% endfor %}
+        {% endfor %}
+    {% endif %}
+</body>
+</html>

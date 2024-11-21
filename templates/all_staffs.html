@@ -1,0 +1,48 @@
+{% extends 'header.html'%}
+
+{% block title %} Staff List {% endblock %}
+
+{% block content %}
+
+<table class="table table-hover">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Department</th>
+      <th>ID Name</th>
+      <th>Privilege</th>
+      <th>Active Status</th>
+
+        </tr>
+
+        {% for details in staffs %}
+        <tr>
+
+            <td>{{details.first_name}}</td>
+            <td>{{details.last_name}}</td>
+            <td>{{details.position}}</td>
+            <td><a href="{{url_for('staffprofile', staff=details.id)}}">{{details.id_name}}</a></td>
+            <td>{{details.privilege}}</td>
+            {% if details.calendar|length > 0 %}
+                <td>{{details.calendar[-1].status}}</td>
+            {% else %}
+              <td>Available</td>
+            {% endif %}
+
+
+        </tr>
+        {% endfor %}
+  </table>
+
+
+    <div class="dropdown-content">
+    <div class='row'>
+        <div class='col-2'>
+            <a href="{{url_for('addUser')}}"><button type="button" class="btn btn-primary">Add Staff</button></a>
+        </div>
+
+    </div>
+    </div>
+
+{% endblock %}
+

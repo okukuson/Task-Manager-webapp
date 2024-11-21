@@ -1,0 +1,37 @@
+{% extends 'second_header.html' %}
+
+{% block title %} Inbox {% endblock %}
+
+{% block content %}
+<div class="container">
+<div class="card" style="width: 50rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{message.title}}</h5>
+    <h12 class="card-subtitle mb-2 text-body-secondary">from: {{message.sender}}, to: {{message.receiver}}</h12>
+    <br><br>
+    <p class="card-text">{{message.message}} </p>
+    {% if message.title=="Request of Leave of Absense" and sender.calendar|length > 0 %}
+    {% if sender.calendar[-1].status == 'Pending' %}
+    <a href="{{url_for('accept_leave', option=message.sender)}}">
+      <button type="button" class="btn btn-success">Approve</button>
+    </a>
+    <a href="{{url_for('reject_leave', option=message.sender)}}">
+      <button type="button" class="btn btn-warning">Deny</button>
+    </a>
+    {% else %}
+    <a href="{{url_for('reject_leave', option=message.sender)}}">
+      <button type="button" class="btn btn-danger">Delete</button>
+    </a>
+    {% endif %}
+      {% else %}
+    <a href="{{url_for('compose_message', recipient=message.sender)}}">
+      <button type="button" class="btn btn-primary">Reply</button>
+    </a>
+    <a href="{{url_for('reject_leave', option=message.sender)}}">
+      <button type="button" class="btn btn-danger">Delete</button>
+    </a>
+    {% endif %}
+  </div>
+</div>
+</div>
+{% endblock %}
