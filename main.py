@@ -10,6 +10,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, curren
 from datetime import datetime, timedelta
 from functools import wraps
 from werkzeug.security import check_password_hash, generate_password_hash
+import os
 
 app = Flask(__name__)
 bootstrap = Bootstrap5()
@@ -19,8 +20,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 
-app.secret_key = SECRET_KEY
-app.config['SQLALCHEMY_DATABASE_URI'] = DATA_BASE
+app.secret_key = os.environ["SECRET_KEY"]
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///web_app_database.db'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///posts.db'
 db = SQLAlchemy()
 db.init_app(app)
@@ -995,4 +996,4 @@ def compose_message(recipient):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
