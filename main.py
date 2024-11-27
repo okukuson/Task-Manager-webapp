@@ -397,8 +397,8 @@ def addCompany():
         newcompany = Company(name=name, location=location, contact=contact, mail=mail)
         db.session.add(newcompany)
         db.session.commit()
-        print("Success!!!")
-
+        flash(f"{name} has been successfully added to Company List!!")
+        return redirect(url_for('companyList'))
     return render_template('add_company.html', form=form)
 
 
@@ -445,11 +445,8 @@ def addTask():
             user.pending = user.pending + f',{task_key}, '
             print('hello')
         db.session.commit()
-        # print(task_key)
-        # assigntask(engineer_name, task_id)
-    #     for task in task_details:
-    #         print(task['task'])
-    # print(task_details)
+        flash(f"New Task {task_name} has been Successfully created")
+        return redirect(url_for('task_list', company='all-task'))
     return render_template('addTask.html', form=form)
 
 
@@ -485,6 +482,8 @@ def taskDetails(task_id):
         new_comment = Comment(author_name=db.get_or_404(User, current_user.id), comment=comment, timing=postdate, task_name=task)
         db.session.add(new_comment)
         db.session.commit()
+        flash('Your Comment has been successfully Added')
+        return redirect(url_for('taskDetails', task_id=task_id))
     return render_template('taskDetails.html', details=task, posts=posts, db_head=db_head, task_id=task_id, staff=staff, form=form)
 
 
@@ -579,21 +578,8 @@ def editTask(taskid):
 
             if money is not None:
                 task.payment = task.payment + money
-
-
-            # staffs = form.assignStaff.data
-            # if staffs not in task.staff_pending.split(','):
-            #     if (task.staff_accepted is None) or (staffs not in task.staff_accepted.split(',')):
-            #         task.staff_pending = task.staff_pending + f',{staffs},'
-            #         user = db.get_or_404(User, int(staffs))
-            #         if user.pending in (None, ""):
-            #             user.pending = f'{str(task.id)}'
-            #         else:
-            #             user.pending = user.pending + f',{str(task.id)}'
-            # if form.money.data > 0:
-            #     task.payment = task.payment + form.money.data
             db.session.commit()
-            flash("Change has been successful")
+            flash(f"Change has been successful made to {task.task_name}!!!")
             return redirect(url_for('taskDetails', task_id=taskid))
     return render_template('edittask.html', form=form, taskid=taskid)
 
@@ -653,6 +639,8 @@ def addUser():
             # db.session.add(new_user)
             db.session.add(available_work)
             db.session.commit()
+            flash(f'Your {new_user.id_name} has been successfully Created')
+            return redirect(url_for("all_staffs"))
     return render_template('add_user.html', form=form)
 
 
@@ -737,6 +725,8 @@ def requestLeave():
         # current_user.calendar = f"Pending, {start}, {end}"
         db.session.add(leave_request)
         db.session.commit()
+        flash('Your Leave Request has been been sent!!!')
+        return redirect(url_for('staffprofile', staff='None'))
     return render_template('/user/request_leave.html', form=form)
 
 
@@ -745,15 +735,22 @@ def user_login():
 
     form = LoginForm()
     if form.validate_on_submit():
-        staff = db.session.query(User).filter(User.email == form.email.data)[0]
-        print(staff.password)
+        username = form.email.data
         password_ = form.password.data
+
+        staff = db.session.query(User).filter(User.email == username)[0]
+        print(staff)
         if check_password_hash(staff.password, password_):
+            # staff = staff
             login_user(staff)
+            flash(f'Welcome Back, {staff.id_name}')
             if staff.privilege == 'Staff':
                 return redirect(url_for('staffprofile', staff='None'))
             else:
                 return redirect(url_for('all_staffs'))
+        else:
+            flash("Incorrect Username or Password!!!")
+            return redirect(url_for('user_login'))
     return render_template('/login.html', form=form)
 
 @app.route('/logout')
@@ -789,7 +786,8 @@ def delete_(message_id):
         message = db.get_or_404(Messages, int(message_id))
         db.session.delete(message)
         db.session.commit()
-        return url_for('inbox')
+        flash("Message has been deleted")
+        return redirect(url_for('inbox'))
 
 @app.route('/to-do', methods=['GET', 'POST'])
 @login_required
@@ -840,6 +838,7 @@ def to_do():
         new_pend.pop(new_pend.index(str(current_user.id)))
         work.staff_pending = ",".join(new_pend)
         db.session.commit()
+        flash(f"You have {pick}ed: {work.task_name} Task!!")
         return redirect(url_for('to_do'))
     return render_template('/user/todo.html', table_head=table_head, task=project, form=form)
 
@@ -887,6 +886,7 @@ def accept_leave(option):
                                    message=msg)
         db.session.add(new_message)
         db.session.commit()
+        flash(f'You have Approved the Leave Request of {users.id_name}')
     return redirect(url_for("inbox"))
 
 @app.route("/deny-leave/<option>")
@@ -914,6 +914,7 @@ def reject_leave(option):
         db.session.delete(last_leave)
         db.session.add(new_message)
         db.session.commit()
+        flash(f'You have Denied the Leave Request of {users.id_name}')
         return redirect(url_for("inbox"))
 
 
@@ -987,9 +988,11 @@ def compose_message(recipient):
                                    message=message)
             db.session.add(new_message)
             db.session.commit()
+            flash('Your Message has been sent Successfully!!!')
+            return redirect(url_for('compose_message', recipient='None'))
     return render_template('/message/compose.html', form=form)
 
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

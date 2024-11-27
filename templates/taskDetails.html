@@ -7,11 +7,17 @@
         <tr>
         {% if current_user.id == 1 %}
             {% for details in db_head %}
-                <th>{{details}}</th>
+                <th>{{details.upper()}}</th>
             {% endfor %}
         {% else %}
             {% for details in db_head[:-1] %}
-                <th>{{details}}</th>
+                {% if current_user.privilege != "Administrator" %}
+                    {% if details not in ('cost', 'payment', 'Balance')%}
+                        <th>{{details.upper()}}</th>
+                    {% endif %}
+                {% else %}
+                    <th>{{details.upper()}}</th>
+                {% endif %}
             {% endfor %}
         {% endif %}
         </tr>
@@ -35,9 +41,11 @@
                         </ul>
                     {% endif %}
                 </td>
+            {% if current_user.privilege == "Administrator" %}
                 <td>{{details.cost}}</td>
                 <td>{{details.payment}}</td>
                 <td>{{details.cost - details.payment}}</td>
+            {% endif %}
                 <td>{{details.startDate}}</td>
                 <td>{{details.status}}</td>
             {% if current_user.privilege == "Administrator" %}
@@ -62,8 +70,6 @@
     <h5 class="card-title">{{post.author_name.id_name}}</h5>
     <h8 class="card-subtitle mb-2 text-muted">{{post.timing}}</h8>
     <p class="card-text">{{post.comment}}</p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
   </div>
 </div>
     </div>
