@@ -3,8 +3,48 @@
 {% block title %} Staff List {% endblock %}
 
 {% block content %}
+<div class="row">
+    <div class="col-2">
+<ul class="list-group list-group-numbered">
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Privilege</div>
+      <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='ad')}}">Total Admin ({{details['ad'][1]}})</a>
+    <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='st')}}">Total Staff ({{details['st'][1]}})</a>
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Leave Status</div>
+      <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='av')}}">Available ({{details['av'][1]}})</a>
+    <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='lv')}}">Leave ({{details['lv'][1]}})</a>
+    <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='lp')}}">Leave Pending ({{details['lp'][1]}})</a>
+    </div>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Job Status</div>
+      <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='wk')}}"> Working({{details['wk'][1]}})</a>
+    <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='wp')}}">Pending({{details['wp'][1]}})</a>
+        <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='id')}}">Idle({{details['id'][1]}})</a>
+    </div>
+    <span class="badge text-bg-primary rounded-pill">14</span>
+  </li>
+    <li class="list-group-item d-flex justify-content-between align-items-start">
+    <div class="ms-2 me-auto">
+      <div class="fw-bold">Contract Status</div>
+      <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='tm')}}"> Terminated({{details['tm'][1]}})</a>
+    <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', category='ac')}}">Active({{details['ac'][1]}})</a>
+    </div>
+  </li>
+</ul>
 
-<table class="table table-hover">
+
+
+</div>
+
+<div class="col-10">
+<table class="table table-hover" >
     <tr>
       <th>First Name</th>
       <th>Last Name</th>
@@ -36,13 +76,14 @@
 
 
     <div class="dropdown-content">
-    <div class='row'>
+
         <div class='col-2'>
             <a href="{{url_for('addUser')}}"><button type="button" class="btn btn-primary">Add Staff</button></a>
         </div>
 
-    </div>
-    </div>
 
+    </div>
+ </div>
+</div>
 {% endblock %}
 

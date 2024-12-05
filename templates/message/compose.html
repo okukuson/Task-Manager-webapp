@@ -1,4 +1,4 @@
-{% extends 'second_header.html' %}
+{% extends 'header.html' %}
 
 {% block title %} Compose New Message {% endblock %}
 
@@ -9,7 +9,9 @@
 
     <div class="container">
         <div class="row">
-            {{render_form(form)}}
+            {{ ckeditor.load() }}
+            {{ ckeditor.config(name='body') }}
+            {{render_form(form, novalidate=True, button_map={"submit": "primary"})}}
         </div>
 
 

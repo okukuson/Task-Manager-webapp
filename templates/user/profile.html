@@ -1,4 +1,4 @@
-{% extends 'second_header.html' %}
+{% extends 'header.html' %}
 
 
 {% block title %}
@@ -15,6 +15,9 @@
 <table class="table table-hover">
   <tr><th>Profile</th></tr>
         {% if staff == 'None' %}
+    <tr>
+           <td><img src="{{url_for('static', filename=current_user.picture)}}" alt="Profile Picture" height="250" width="200"></td>
+        </tr>
     <tr>
       <td>First Name : </td><td>{{current_user.first_name}}</td>
     </tr>
@@ -47,7 +50,13 @@
     {% endif %}
 
         {% else %}
-
+        <tr>
+            {% if staff.picture == 'profile_pic/default.jpg' %}
+                <td><img src="{{url_for('static', filename='profilepic.png')}}" alt="Profile Picture" height="250" width="200"></td>
+            {% else %}
+                <td><img src="{{url_for('static', filename=staff.picture)}}" alt="Profile Picture" height="250" width="200"></td>
+            {% endif %}
+        </tr>
         <tr>
       <td>First Name : </td><td>{{staff.first_name}}</td>
     </tr>

@@ -23,8 +23,15 @@
             {% else %}
                 <td>{{message.receiver}}</td>
             {% endif %}
-            <td><a href="{{url_for('read_message',msg=message.id)}}">{{message.title}}</a></td>
+            {% if message.read == True%}
+                <td><a href="{{url_for('read_message',msg=message.id)}}">{{message.title}}</a></td>
+            {% elif message.sender == current_user.id_name %}
+                <td><a href="{{url_for('read_message',msg=message.id)}}">{{message.title}}</a></td>
+            {% else %}
+                <td><b><a href="{{url_for('read_message',msg=message.id)}}">{{message.title}}</a></b></td>
+            {% endif %}
             <td>{{message.timing}}</td>
+
         </tr>
     {% endfor %}
 </table>

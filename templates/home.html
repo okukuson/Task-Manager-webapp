@@ -2,8 +2,58 @@
 
     {% block title %} homepage {% endblock%}
     {% block content%}
-
-    <table class="table table-hover">
+<div class="row">
+    <div class="col-2">
+        {% if current_user.privilege == 'Administrator' %}
+        <ul class="list-group">
+            {% if comp['cm'][1]==0 %}
+                <li class="list-group-item">Complete({{comp['cm'][1]}})</li>
+            {% else %}
+                <li class="list-group-item"><a href="{{url_for('task_list', company=company, status='cm')}}"> Complete({{comp['cm'][1]}})</a></li>
+            {% endif %}
+            {% if comp['on'][1]==0 %}
+                <li class="list-group-item">On going({{comp['on'][1]}})</li>
+            {% else %}
+                <li class="list-group-item"><a href="{{url_for('task_list', company=company, status='on')}}">On going({{comp['on'][1]}})</a></li>
+            {% endif %}
+            {% if comp['pn'][1]==0 %}
+                <li class="list-group-item">Pending({{comp['pn'][1]}})</li>
+            {% else %}
+                <li class="list-group-item"><a href="{{url_for('task_list', company=company, status='pn')}}">Pending({{comp['pn'][1]}})</a></li>
+            {% endif %}
+            {% if comp['su'][1]==0 %}
+                <li class="list-group-item">Suspended({{comp['su'][1]}})</li>
+            {% else %}
+                <li class="list-group-item"><a href="{{url_for('task_list', company=company, status='su')}}">Suspended({{comp['su'][1]}})</a></li>
+            {% endif %}
+        </ul>
+        {% else %}
+            <ul class="list-group">
+            {% if details['comp'][1]==0 %}
+                <li class="list-group-item">Complete(0)</li>
+            {% else %}
+                <li class="list-group-item"><a href="{{url_for('taskboard', status='comp')}}"> Complete({{details['comp'][1]}})</a></li>
+            {% endif %}
+            {% if details['on'][1]==0 %}
+                <li class="list-group-item">On going(0)</li>
+            {% else %}
+                <li class="list-group-item"><a href="{{url_for('taskboard', status='on')}}">On going({{details['on'][1]}})</a></li>
+            {% endif %}
+            {% if details['pen'][1]==0 %}
+                <li class="list-group-item">Pending(0)</li>
+            {% else %}
+                <li class="list-group-item"><a href="{{url_for('taskboard', status='pen')}}">Pending({{details['pen'][1]}})</a></li>
+            {% endif %}
+            {% if details['susp'][1]==0 %}
+                <li class="list-group-item">Suspended(0)</li>
+            {% else %}
+                <li class="list-group-item"><a href="{{url_for('taskboard', status='susp')}}">Suspended({{details['susp'][1]}})</a></li>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+    <div class="col-10">
+        <table class="table table-hover">
         <tr>
         {% for details in db_head %}
             {% if details in remove %}
@@ -36,6 +86,8 @@
             <a href="{{url_for('addTask')}}"><button type="button" class="btn btn-primary">Add Task</button></a>
         </div>
   </div>
+</div>
+    </div>
 </div>
 {% endif %}
 {% endblock %}

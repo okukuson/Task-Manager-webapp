@@ -9,64 +9,23 @@
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand" href="#"><img src="{{url_for('static', filename='task.jpg')}}" alt="logo" width="50" height="50"></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        {% if current_user.is_authenticated == False %}
          <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="">Welcome</a>
           </li>
-        {% else %}
-            {% if current_user.privilege == "Administrator" %}
-              <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{url_for('all_staffs', staff='None')}}">Staffs</a>
-          </li>
-              <li class="nav-item">
-            <a class="nav-link" href="{{url_for('companyList')}}">Company</a>
-          </li>
-              <li class="nav-item">
-          <a class="nav-link" href="{{url_for('task_list', company='all-task')}}">Task </a>
-        </li>
-
-            {% else %}
-              <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="{{url_for('staffprofile', staff='None')}}">Profile</a>
-          </li>
-              <li class="nav-item">
-            <a class="nav-link" href="{{url_for('to_do')}}">TO-DO</a>
-          </li>
-              <li class="nav-item">
-          <a class="nav-link" href="{{url_for('taskboard')}}">Task</a>
-        </li>
-              <li class="nav-item">
-          <a class="nav-link" href="{{url_for('requestLeave')}}">Request Leave</a>
-        </li>
-            {% endif %}
-            <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Message
-          </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="{{url_for('inbox')}}">Inbox</a></li>
-            <li><a class="dropdown-item" href="{{url_for('compose_message', recipient='None')}}">Compose New Message</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><a class="dropdown-item" href="{{url_for('outbox')}}">OutBox</a></li>
-          </ul>
-        </li>
-
       </ul>
 
-      <a href="{{url_for('user_logout')}}"><button type="button" class="btn btn-danger">log out</button></a>
-      {% endif %}
     </div>
   </div>
 </nav>
 
 
-    {% include 'flashmessage.html' %}
+{% include 'flashmessage.html' %}
         {% block content %}
 
 

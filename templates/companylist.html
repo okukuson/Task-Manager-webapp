@@ -7,16 +7,24 @@
 <table class="table table-hover">
     <tr>
         {% for details in db_head %}
-                <th>{{details}}</th>
+                <th>{{(details).capitalize()}}</th>
         {% endfor %}
+        <th>tk on.</th>
+        <th>tk Comp.</th>
+        <th>tk pnd.</th>
+        <th>tk susp.</th>
         </tr>
 
         {% for details in data %}
         <tr>
-            <td><a href="{{url_for('task_list', company=details.id)}}">{{details.name}}</a></td>
+            <td class="col-2"><a href="{{url_for('task_list', company=details.id, status='None')}}">{{details.name}}</a></td>
             <td>{{details.location}}</td>
             <td>{{details.contact}}</td>
             <td>{{details.mail}}</td>
+            <td>{{info[details.name][0]}}</td>
+            <td>{{info[details.name][1]}}</td>
+             <td>{{info[details.name][2]}}</td>
+            <td>{{info[details.name][3]}}</td>
             <td><a href="{{url_for('editCompany', company_id=details.id)}}"><button type="button" class="btn btn-success">Edit Company</button></a></td>
         </tr>
         {% endfor %}
@@ -38,59 +46,3 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>homepage</title>
-    <style>
-        table, th, td{
-            border: 1px solid black;
-            }
-    </style>
-</head>
-<body>
-    <table>
-        <tr>
-        {% for details in db_head %}
-                <th>{{details}}</th>
-        {% endfor %}
-        </tr>
-
-        {% for company in companys %}
-        <tr>
-            {% for details in company %}
-                    <td>{{details}}</td>
-            {% endfor %}
-        </tr>
-        {% endfor %}
-    </table>
-
-<div class="dropdown">
-  <button class="dropbtn">Dropdown</button>
-  <div class="dropdown-content">
-    <a href="{{url_for('addTask')}}">Link 1</a>
-    <a href="{{url_for('addCompany')}}">Link 2</a>
-  </div>
-</div>
-
-</body>
-</html>-->

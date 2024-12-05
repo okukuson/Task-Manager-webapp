@@ -26,10 +26,10 @@
         <tr>
 
 
-                <td>{{details.task_id}}</td>
-                <td>{{details.company_name.name}}</td>
-                <td>{{details.location}}</td>
-                <td>{{details.task_name}}</td>
+                <td>{{task.task_id}}</td>
+                <td>{{task.company_name.name}}</td>
+                <td>{{task.location}}</td>
+                <td>{{task.task_name}}</td>
                 <td>
                     {% if staff|length == 0 %}
                         No staff assigned
@@ -42,12 +42,12 @@
                     {% endif %}
                 </td>
             {% if current_user.privilege == "Administrator" %}
-                <td>{{details.cost}}</td>
-                <td>{{details.payment}}</td>
-                <td>{{details.cost - details.payment}}</td>
+                <td>{{task.cost}}</td>
+                <td>{{task.payment}}</td>
+                <td>{{task.cost - task.payment}}</td>
             {% endif %}
-                <td>{{details.startDate}}</td>
-                <td>{{details.status}}</td>
+                <td>{{task.startDate}}</td>
+                <td>{{task.status}}</td>
             {% if current_user.privilege == "Administrator" %}
                 <td><a href="{{url_for('editTask',taskid=task_id)}}">
                     <button type="button" class="btn btn-success">Edit</button>
