@@ -81,6 +81,7 @@ db.sqlite3-journal
 instance/
 .webassets-cache
 
+
 # Scrapy stuff:
 .scrapy
 
@@ -173,3 +174,4 @@ tryer.html
 trying.py
 serv.py
 .gitignore
+web_app_database.db

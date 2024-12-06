@@ -42,7 +42,7 @@
             {% if details['pen'][1]==0 %}
                 <li class="list-group-item">Pending(0)</li>
             {% else %}
-                <li class="list-group-item"><a href="{{url_for('taskboard', status='pen')}}">Pending({{details['pen'][1]}})</a></li>
+                <li class="list-group-item"><a href="{{url_for('to_do')}}">Pending({{details['pen'][1]}})</a></li>
             {% endif %}
             {% if details['susp'][1]==0 %}
                 <li class="list-group-item">Suspended(0)</li>
