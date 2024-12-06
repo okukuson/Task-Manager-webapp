@@ -1,1 +1,1 @@
-web:gunicorn mainskljdfk:applskdjfkldj
+web:gunicorn main:app
