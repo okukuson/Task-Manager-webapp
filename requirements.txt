@@ -4,7 +4,7 @@ Flask_CKEditor==1.0.0
 Flask_Login==0.6.2
 flask_sqlalchemy==3.0.5
 Flask_WTF==1.2.1
-Werkzeug==3.0.0
+Werkzeug==2.3.0
 WTForms==3.0.1
 SQLAlchemy==2.0.36
 gunicorn==23.0.0
