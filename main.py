@@ -49,7 +49,7 @@ class User(db.Model, UserMixin):
     last_name = db.Column(db.String(30),  nullable=False)
     id_name = db.Column(db.String(30),  nullable=False)
     picture = db.Column(db.String(30), default='profilepic.png')
-    password = db.Column(db.String(30), nullable=False)
+    password = db.Column(db.String(300), nullable=False)
     calendar = relationship("Calendar", back_populates='staff', lazy='subquery')
     contract = db.Column(db.String(30), nullable=False)
     pending = db.Column(db.String(30))
