@@ -105,10 +105,10 @@ class Company(db.Model):
     __tablename__ = 'company'
 
     id = db.Column(db.Integer, primary_key=True)
-
     name = db.Column(db.String(30), nullable=False)
     location = db.Column(db.String(30), nullable=False)
     contact = db.Column(db.String(30))
+    contact_name = db.Column(db.String(30))
     mail = db.Column(db.String(30))
 
     task = relationship("Task", back_populates='company_name', lazy='subquery')
@@ -294,7 +294,7 @@ def leave_calculator(staff):
 
 #                                                  Form sections
 
-db_head = ["id", 'company name', "location", 'task', "assign", 'cost', "payment", "Balance", "start", "status",
+db_head = ["id", 'company name', 'task name', "task location", "assigned staff", 'cost', "payment", "Balance", "start", "status",
            "confirm"]
 
 #                                      Route Section
@@ -361,14 +361,15 @@ def all_staffs(category):
 @login_required
 @admin_only
 def addCompany():
-    form = MyForm()
+    form = CompanyForm()
     if form.validate_on_submit():
 
         name = form.name.data
         location = form.location.data
         contact = form.contact.data
+        contact_name = form.contact_name.data
         mail = form.mail.data
-        newcompany = Company(name=name, location=location, contact=contact, mail=mail)
+        newcompany = Company(name=name, location=location, contact_name=contact_name, contact=contact, mail=mail)
         db.session.add(newcompany)
         db.session.commit()
         flash(f"{name} has been successfully added to Company List!!")
@@ -545,7 +546,7 @@ def editTask(taskid):
             db.session.commit()
             flash(f"Change has been successful made to {task.task_name}!!!")
             return redirect(url_for('taskDetails', task_id=taskid))
-    return render_template('edittask.html', form=form, taskid=taskid, num_mail=mail_counter())
+    return render_template('edit_details.html', form=form, name=task.task_name, num_mail=mail_counter())
 
 
 @app.route("/company-list", methods=['GET', 'POST'])
@@ -553,7 +554,7 @@ def editTask(taskid):
 @admin_only
 # Displays list of companies for the admin accounts
 def companyList():
-    colhead = ('name', 'location', 'contact', 'mail')
+    colhead = ('name', 'location', 'contact name',  'contact number', 'Contact Email')
     with app.app_context():
         data1 = db.session.query(Company).all()
 
@@ -662,12 +663,18 @@ def editCompany(company_id):
     company = db.get_or_404(Company, company_id)
     form = EditCompany()
     if request.method == 'POST':
+        name = form.name.data
         email = form.email.data
         location = form.location.data
+        contact_name = form.contact_name.data
         number = form.number.data
 
+        if name is not None and name.strip() != '':
+            company.name = name
         if email is not None and email.strip() != '':
             company.email = email
+        if contact_name is not None and email.strip() != '':
+            company.contact_name = contact_name
         if location is not None and location.strip() != '':
             company.location = location.strip()
         if number is not None and number.strip() != '':
@@ -972,4 +979,4 @@ def compose_message(recipient):
 
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    app.run(debug=True)

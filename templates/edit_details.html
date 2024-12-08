@@ -5,10 +5,10 @@
 
 {% from 'bootstrap5/form.html' import render_form %}
 <div class="container" xmlns="http://www.w3.org/1999/html">
- <h4 class="link-danger" align="center">ATTENTION</h4>
- <h5 class="link-warning" align="center">Please field you dont wish to change or alter blank</h5>
+ <h4 class="link-danger" align="center">ATTENTION!!!</h4>
+ <h5 class="link-warning" align="center">Please <span style="color:red;">DON'T</span> fill the field you <span style="color:red;">DON'T</span> wish to change or alter blank</h5>
  <br><br>
- <h3><u>{{name}} Details</u></h3>
+ <h3><u>{{name.capitalize()}} Details</u></h3>
  {{render_form(form)}}
 </div>
 

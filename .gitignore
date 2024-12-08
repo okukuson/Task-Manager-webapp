@@ -175,3 +175,5 @@ trying.py
 serv.py
 .gitignore
 web_app_database.db
+static/profile_pic/
+instance/web_app_database.db

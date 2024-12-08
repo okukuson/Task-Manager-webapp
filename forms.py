@@ -5,10 +5,11 @@ from wtforms.validators import DataRequired, Length
 from flask_wtf.file import FileAllowed
 from flask_ckeditor import CKEditorField
 
-class MyForm(FlaskForm):
-    name = StringField(label="Name", validators=[DataRequired()])
-    location = StringField(label="Location", validators=[DataRequired()])
-    contact = StringField(label="Contact", validators=[DataRequired()])
+class CompanyForm(FlaskForm):
+    name = StringField(label="Company Name", validators=[DataRequired()])
+    location = StringField(label="Company Location", validators=[DataRequired()])
+    contact_name = StringField(label="Contact Name", validators=[DataRequired()])
+    contact = StringField(label="Contact Number", validators=[DataRequired()])
     mail = StringField(label="Email", validators=[DataRequired()])
     submit = SubmitField(label="Submit")
 
@@ -84,8 +85,10 @@ class EditUserForm(FlaskForm):
     submit = SubmitField(label='Update Details')
 
 class EditCompany(FlaskForm):
+    name = StringField(label='New Company Name')
     email = EmailField(label='New Email Address')
     number = StringField(label='New Phone Number')
+    contact_name = StringField(label='New Contact Name')
     location = StringField(label='New location')
     submit = SubmitField(label='Update Details')
 
