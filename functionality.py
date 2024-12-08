@@ -2,6 +2,7 @@ from random import randint
 import os.path
 import matplotlib.pyplot as plt
 import io
+from werkzeug.utils import secure_filename
 
 
 
@@ -16,12 +17,13 @@ def generate_id():
 
 
 # saves the upload picture and return the path to the picture
-def upload_picture(picture_file, users_name):
+def upload_picture(picture_file, users_name, folder):
     picture = picture_file.filename
-    if not picture.endswith(('.jpg', '.png')):
+    if not picture.endswith(('.jpg', '.png', '.jpeg')):
         return 'profile_pic/default.jpg'
-    filename = f"{users_name}.{picture[-4::]}"
-    picture_path = os.path.join('static/profile_pic', filename)
+    picture = secure_filename(picture)
+    filename = f"{users_name}_{picture}"
+    picture_path = os.path.join(folder, filename)
     picture_file.save(picture_path)
     return f'profile_pic/{filename}'
 

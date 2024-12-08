@@ -29,6 +29,8 @@ app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
     'pool_timeout': 30,
     'pool_recycle': 1800
 }
+app.config['UPLOAD_FOLDER'] = 'static/profile_pic'
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 
 db = SQLAlchemy()
 db.init_app(app)
@@ -601,7 +603,7 @@ def addUser():
                             privilege=privilege,)
 
             db.session.add(new_user)
-            picture = upload_picture(picture, new_user.id_name)
+            picture = upload_picture(picture, new_user.id_name,app.config['UPLOAD_FOLDER'])
             new_user.picture = picture
             available_work = Calendar(staff=new_user,
                                     start=datetime.now().strftime("%b %d, %Y %H %m"),
@@ -637,7 +639,7 @@ def editUser(user_id):
             if position is not None and position.strip() != '':
                 staff.position = position
             if picture is not None:
-                picture = upload_picture(picture, staff.id_name)
+                picture = upload_picture(picture, staff.id_name, app.config['UPLOAD_FOLDER'])
                 staff.picture = picture
             if password is not None and password.strip() != '':
                 if password == re_password:
