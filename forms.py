@@ -21,7 +21,7 @@ class TaskForm(FlaskForm):
     engineer_name = SelectField(u'Assign staff')
     # status = StringField(label='Status', validators=[DataRequired()])
     startDate = DateField(label='Start Date', validators=[DataRequired()])
-    status = StringField(label='status', validators=[DataRequired()])
+    # status = StringField(label='status', validators=[DataRequired()])
     # progress = StringField(label='progress', validators=[DataRequired()])
     cost = IntegerField(label='Cost', validators=[DataRequired()])
     payment = IntegerField(label='Payment', default=0)

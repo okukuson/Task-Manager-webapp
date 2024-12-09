@@ -35,7 +35,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 db = SQLAlchemy()
 db.init_app(app)
 
-indeptDetails = ("location", "staff", "payment", "confirm", "start", "end")
+indeptDetails = ("task location", "assigned staff", "payment", "confirm", "start", "end")
 
 ########################## DATABASE TABLE
 
@@ -296,6 +296,7 @@ def leave_calculator(staff):
 
 db_head = ["id", 'company name', 'task name', "task location", "assigned staff", 'cost', "payment", "Balance", "start", "status",
            "confirm"]
+indeptDetails = ("assigned staff", "payment", "confirm", "start", "end")
 
 #                                      Route Section
 @app.route("/<company>/<status>", methods=['POST', 'GET'])

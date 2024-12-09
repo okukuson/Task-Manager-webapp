@@ -58,7 +58,7 @@
         {% for details in db_head %}
             {% if details in remove %}
                 {{pass}}
-            {% elif details == 'assign' %}
+            {% elif details == 'assigned staff' %}
                 <th>location</th>
             {% else %}
                 <th>{{details}}</th>

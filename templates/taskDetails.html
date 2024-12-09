@@ -27,9 +27,9 @@
 
 
                 <td>{{task.task_id}}</td>
-                <td>{{task.company_name.name}}</td>
+                <td>{{task.company_name.name.capitalize()}}</td>
+                <td>{{task.task_name.capitalize()}}</td>
                 <td>{{task.location}}</td>
-                <td>{{task.task_name}}</td>
                 <td>
                     {% if staff|length == 0 %}
                         No staff assigned
